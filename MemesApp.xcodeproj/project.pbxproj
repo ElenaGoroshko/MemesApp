@@ -18,6 +18,7 @@
 		F3E3AA101FEABC8F00FDE277 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E3AA0F1FEABC8F00FDE277 /* DataManager.swift */; };
 		F3E3AA121FEAD2E100FDE277 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E3AA111FEAD2E100FDE277 /* Meme.swift */; };
 		F3E634961FEADCB200DAF566 /* AddMemesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E634951FEADCB200DAF566 /* AddMemesCollectionViewController.swift */; };
+		F3F2333C1FEAF27D00D85BD7 /* GriddedContentCollectionVIewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F2333B1FEAF27D00D85BD7 /* GriddedContentCollectionVIewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		F3E3AA0F1FEABC8F00FDE277 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F3E3AA111FEAD2E100FDE277 /* Meme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 		F3E634951FEADCB200DAF566 /* AddMemesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemesCollectionViewController.swift; sourceTree = "<group>"; };
+		F3F2333B1FEAF27D00D85BD7 /* GriddedContentCollectionVIewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GriddedContentCollectionVIewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				F3A79A481FE26D8600A7A4DE /* Main.storyboard */,
 				F3D3D0DA1FEAB659002EE501 /* MemesCollectionViewController.swift */,
 				F3E634951FEADCB200DAF566 /* AddMemesCollectionViewController.swift */,
+				F3F2333B1FEAF27D00D85BD7 /* GriddedContentCollectionVIewDelegate.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3F2333C1FEAF27D00D85BD7 /* GriddedContentCollectionVIewDelegate.swift in Sources */,
 				F37A80E51FEAB875000B16FF /* MemeCollectionViewCell.swift in Sources */,
 				F3E3AA101FEABC8F00FDE277 /* DataManager.swift in Sources */,
 				F3D3D0DB1FEAB659002EE501 /* MemesCollectionViewController.swift in Sources */,

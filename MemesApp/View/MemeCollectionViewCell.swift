@@ -20,8 +20,8 @@ class MemeCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    func update(name: String) {
+    func update(name: String, image: UIImage) {
         ibLabel.text = name
-        
+        ibImage.image = image
     }
 }

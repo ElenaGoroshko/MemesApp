@@ -18,12 +18,12 @@ struct Meme {
     let id: String
     let name: String
     let url: String
-   // let image: UIImage 
+    let image: UIImage
 
-    init (id: String, name: String, url: String, image: UIImage?) {
+    init (id: String, name: String, url: String, image: UIImage) {
         self.id = id
         self.name = name
         self.url = url
-       // self.image = image
+        self.image = image
     }
 }

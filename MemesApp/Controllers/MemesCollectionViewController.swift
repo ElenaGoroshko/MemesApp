@@ -54,7 +54,9 @@ class MemesCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MemeCollectionViewCell.reuseID,
                                                             for: indexPath) as? MemeCollectionViewCell else {fatalError("Error")}
-        cell.update(name: "hello")
+        let meme = DataManager.instance.gottenMemes[indexPath.item]
+        
+        cell.update(name: meme.name, image: meme.image)
    
         return cell
     }
