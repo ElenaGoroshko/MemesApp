@@ -29,26 +29,28 @@ class DataManager {
                 let jsonMemes = jsonData["memes"]
                 guard let jsonArr = jsonMemes.array else { return }
                 for jsonObject in jsonArr {
-                    guard let id = jsonObject["id"].string,
-                        let name = jsonObject["name"].string,
-                        let urlStr = jsonObject["url"].string else { return }
-                    guard let url = URL(string: urlStr) else {return }
-                    DispatchQueue.global().async {
-                        guard let imageData = try? Data(contentsOf: url) else { return }
-                        let image = UIImage(data: imageData)!
-                        DispatchQueue.main.async { [weak self] in
-                            let meme = Meme(id: id, name: name, url: urlStr, image: image)
-                            debugPrint(meme)
-                            self?.gottenMemes.append(meme)
-                            sender.collectionView?.reloadData()
-                        }
-                    }
+                    guard let meme = Meme(json: jsonObject) else { continue }
+                    self?.gottenMemes.append(meme)
+                    sender.collectionView?.reloadData()
+//                    guard let id = jsonObject["id"].string,
+//                        let name = jsonObject["name"].string,
+//                        let urlStr = jsonObject["url"].string else { return }
+//            // загрузка картинки
+//                    guard let url = URL(string: urlStr) else {return }
+//                    DispatchQueue.global().async {
+//                        guard let imageData = try? Data(contentsOf: url) else { return }
+//                        let image = UIImage(data: imageData)!
+//                        DispatchQueue.main.async { [weak self] in
+//                            let meme = Meme(id: id, name: name, url: urlStr, image: image)
+//                            debugPrint(meme)
+//                            self?.gottenMemes.append(meme)
+//                            sender.collectionView?.reloadData()
+//                        }
+//                    }
                 }
             case .failure(let error):
                 debugPrint(error)
             }
-     //       guard let sender = sender as? AddMemesCollectionViewController else { return }
-     //       sender.collectionView?.reloadData()
         }
     }
 //    func getImage (urlStr: String) -> UIImage? {

@@ -12,10 +12,15 @@ class GriddedContentCollectionVIewDelegate: NSObject, UICollectionViewDelegateFl
 // MARK: UICollectionViewDelegate
     let minimumItemSpacing: CGFloat = 3
     var sectionInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
-    let countItem: CGFloat = 2.0
+    var countItem: CGFloat = 2.0
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
+//        if collectionView.dataSource as MemesCollectionViewController {
+//            countItem = 2.0
+//        } else {
+//            countItem = 3.0
+//        }
         let paddingSpase = sectionInsets.left + sectionInsets.right + (minimumItemSpacing * (countItem - 1))
         let widthItem = (collectionView.bounds.width - paddingSpase) / countItem
         return CGSize(width: widthItem, height: widthItem)
