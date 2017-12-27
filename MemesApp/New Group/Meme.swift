@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 struct Meme {
     /*
      "id": "61579",
@@ -18,12 +19,25 @@ struct Meme {
     let id: String
     let name: String
     let url: String
-    let image: UIImage
+    var image: UIImage
 
     init (id: String, name: String, url: String, image: UIImage) {
         self.id = id
         self.name = name
         self.url = url
+        self.image = image
+    }
+    init? (json: JSON) {
+        guard let id = json["id"].string,
+            let name = json["name"].string,
+            let urlStr = json["url"].string else { return nil }
+        
+        self.id = id
+        self.name = name
+        self.url = urlStr
+        self.image = #imageLiteral(resourceName: "placeholder-image")
+    }
+    mutating func setImage(image: UIImage) {
         self.image = image
     }
 }
