@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import PKHUD
 
 class DataManager {
     static let instance = DataManager()
@@ -21,6 +22,7 @@ class DataManager {
         
     }
     func getMemes(sender: UICollectionViewController) {
+        HUD.show(.progress)
         Alamofire.request(getURL).responseJSON { [weak self] response in
             switch response.result {
             case .success(let value):
@@ -30,21 +32,25 @@ class DataManager {
                 guard let jsonArr = jsonMemes.array else { return }
                 for jsonObject in jsonArr {
                     guard var meme = Meme(json: jsonObject) else { continue }
-                    guard let url = URL(string: meme.url) else {continue }
-                    DispatchQueue.global().async {
-                        guard let imageData = try? Data(contentsOf: url) else { return }
-                        let image = UIImage(data: imageData)!
-                        DispatchQueue.main.async { [weak self] in
-                           // let meme = Meme(id: id, name: name, url: urlStr, image: image)
-                            meme.setImage(image: image)
-                            debugPrint(meme)
-                            self?.gottenMemes.append(meme)
-                            sender.collectionView?.reloadData()
-                        }
-                    }
+                    self?.gottenMemes.append(meme)
                 }
+                HUD.hide()
+                sender.collectionView?.reloadData()
             case .failure(let error):
                 debugPrint(error)
+            }
+        }
+    }
+    func getImage(index: Int, collectionView: UICollectionView) {
+        var meme = self.gottenMemes[index]
+        guard let url = URL(string: meme.url) else {return }
+        DispatchQueue.global().async {
+            guard let imageData = try? Data(contentsOf: url) else { return }
+            let image = UIImage(data: imageData)!
+            DispatchQueue.main.async { [unowned self, index] in
+                meme.setImage(image: image)
+                debugPrint(meme)
+                self.gottenMemes[index] = meme
             }
         }
     }

@@ -8,4 +8,5 @@ target 'MemesApp' do
 pod 'SwiftLint'
 pod 'Alamofire'
 pod 'SwiftyJSON'
+pod 'PKHUD'
 end

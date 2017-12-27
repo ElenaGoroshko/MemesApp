@@ -20,6 +20,7 @@ struct Meme {
     let name: String
     let url: String
     var image: UIImage
+    var imageExist: Bool = false
 
     init (id: String, name: String, url: String, image: UIImage) {
         self.id = id
@@ -39,5 +40,6 @@ struct Meme {
     }
     mutating func setImage(image: UIImage) {
         self.image = image
+        self.imageExist = true
     }
 }
