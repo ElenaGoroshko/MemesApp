@@ -9,4 +9,5 @@ pod 'SwiftLint'
 pod 'Alamofire'
 pod 'SwiftyJSON'
 pod 'PKHUD'
+pod 'KeychainSwift'
 end

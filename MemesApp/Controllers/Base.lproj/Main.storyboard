@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,12 +20,64 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="xws-U6-Ug9" kind="relationship" relationship="rootViewController" id="byh-2Z-12R"/>
+                        <segue destination="WS3-Nb-EcQ" kind="relationship" relationship="rootViewController" id="Pfi-cA-toR"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ls3-DD-WoA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-863" y="-25"/>
+            <point key="canvasLocation" x="-1657" y="-36"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="EcW-AB-iY6">
+            <objects>
+                <viewController id="WS3-Nb-EcQ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="42U-Ve-ei8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vn4-9t-OtM">
+                                <rect key="frame" x="127" y="311" width="120" height="45"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="Kbq-XB-BQN"/>
+                                    <constraint firstAttribute="height" constant="45" id="W2r-Eo-gbK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="START">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="xws-U6-Ug9" kind="show" id="RHN-DK-zSF"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNm-iF-jUV">
+                                <rect key="frame" x="20" y="247" width="335" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="9wk-3b-6gR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.87247721349999996" blue="0.70388454860000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="jmH-LI-lGB" firstAttribute="trailing" secondItem="BNm-iF-jUV" secondAttribute="trailing" constant="20" id="HiQ-3Y-d2U"/>
+                            <constraint firstItem="BNm-iF-jUV" firstAttribute="centerY" secondItem="42U-Ve-ei8" secondAttribute="centerY" multiplier="4/5" id="JQN-Pl-ca3"/>
+                            <constraint firstItem="Vn4-9t-OtM" firstAttribute="centerX" secondItem="42U-Ve-ei8" secondAttribute="centerX" id="PTY-yD-jYJ"/>
+                            <constraint firstItem="Vn4-9t-OtM" firstAttribute="centerY" secondItem="42U-Ve-ei8" secondAttribute="centerY" id="hdS-e3-FIW"/>
+                            <constraint firstItem="BNm-iF-jUV" firstAttribute="leading" secondItem="jmH-LI-lGB" secondAttribute="leading" constant="20" id="kF9-A9-hPe"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jmH-LI-lGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="o9S-cy-Qch">
+                        <barButtonItem key="backBarButtonItem" title="Logout" id="wjA-m6-qWo"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UMs-ab-DY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-922.39999999999998" y="-36.431784107946029"/>
         </scene>
         <!--Memes-->
         <scene sceneID="BTT-OY-Dak">
@@ -33,7 +86,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ePC-Nf-zZT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="0.87247721349999996" blue="0.70388454860000005" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hQt-YU-6uU">
                             <size key="itemSize" width="190" height="141"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -46,7 +99,7 @@
                             <outlet property="delegate" destination="xws-U6-Ug9" id="284-lY-5X2"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Memes" id="JaD-YV-G0T">
+                    <navigationItem key="navigationItem" title="Memes" leftItemsSupplementBackButton="YES" id="JaD-YV-G0T">
                         <barButtonItem key="rightBarButtonItem" title="+" id="fmL-dB-wea">
                             <connections>
                                 <action selector="addPressed:" destination="xws-U6-Ug9" id="LhX-Ea-A6U"/>
@@ -80,7 +133,7 @@
                                 <rect key="frame" x="20" y="84" width="335" height="522"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="0.87247721349999996" blue="0.70388454860000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="YE6-8K-ihf" firstAttribute="top" secondItem="u5h-Ps-YVC" secondAttribute="top" constant="20" id="56M-N8-fup"/>
                             <constraint firstItem="u5h-Ps-YVC" firstAttribute="trailing" secondItem="YE6-8K-ihf" secondAttribute="trailing" constant="20" id="Hon-RI-Rnc"/>
@@ -116,7 +169,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="69R-Of-nFY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="0.87247721349999996" blue="0.70388454860000005" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Z24-6b-rA5">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
