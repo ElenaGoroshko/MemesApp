@@ -17,6 +17,7 @@ class DataManager {
     let getURL = "https://api.imgflip.com/get_memes"
     var gottenMemes: [Meme] = []
     var favoriteMemes: [Meme] = []
+    var bufferImages: [String: UIImage] = [:]
     
     private init() {
         
@@ -31,7 +32,7 @@ class DataManager {
                 let jsonMemes = jsonData["memes"]
                 guard let jsonArr = jsonMemes.array else { return }
                 for jsonObject in jsonArr {
-                    guard var meme = Meme(json: jsonObject) else { continue }
+                    guard let meme = Meme(json: jsonObject) else { continue }
                     self?.gottenMemes.append(meme)
                 }
                 HUD.hide()
@@ -41,17 +42,22 @@ class DataManager {
             }
         }
     }
-    func getImage(index: Int, collectionView: UICollectionView) {
-        var meme = self.gottenMemes[index]
-        guard let url = URL(string: meme.url) else {return }
-        DispatchQueue.global().async {
-            guard let imageData = try? Data(contentsOf: url) else { return }
-            let image = UIImage(data: imageData)!
-            DispatchQueue.main.async { [unowned self, index] in
-                meme.setImage(image: image)
-                debugPrint(meme)
-                self.gottenMemes[index] = meme
-            }
+    func getImage(indexPath: IndexPath, collectionView: UICollectionView) {
+        let meme = self.gottenMemes[indexPath.item]
+        Alamofire.request(meme.url).responseData { response in
+            guard let data = response.data else { return }            
+            guard let image = UIImage(data: data) else { return }
+            let memeImage = MemeImage(id: meme.id, image: image)
+            self.bufferImages[meme.id] = memeImage.image
+            //notification
+            NotificationCenter.default.post(name: .GetMemeImage, object: nil,
+                                            userInfo: ["indexPath": indexPath] )
+        }
+    }
+    func delFavoriteMeme (meme: Meme) {
+        for (index, memeTmp) in self.favoriteMemes.enumerated() where meme.id == memeTmp.id {
+                self.favoriteMemes.remove(at: index)
+                return
         }
     }
 }

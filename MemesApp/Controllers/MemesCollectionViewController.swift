@@ -11,34 +11,24 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class MemesCollectionViewController: UICollectionViewController {
+    private let gridedDelegate = GriddedContentCollectionVIewDelegate()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(MemeCollectionViewCell.nib, forCellWithReuseIdentifier: MemeCollectionViewCell.reuseID)
-
-        // Do any additional setup after loading the view.
+        gridedDelegate.countItem = 2.0
+        collectionView?.delegate = gridedDelegate
+        self.collectionView!.register(MemeCollectionViewCell.nib,
+                                      forCellWithReuseIdentifier: MemeCollectionViewCell.reuseID)
+        collectionView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
+        addObservers()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func addPressed(_ sender: UIBarButtonItem) {
+        guard let destVC = storyboard?.instantiateViewController(withIdentifier: "AddMemes") as? AddMemesCollectionViewController else {return}
+        self.navigationController?.pushViewController(destVC, animated: true)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -54,42 +44,44 @@ class MemesCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MemeCollectionViewCell.reuseID,
                                                             for: indexPath) as? MemeCollectionViewCell else {fatalError("Error")}
-        let meme = DataManager.instance.gottenMemes[indexPath.item]
-        
-        cell.update(name: meme.name, image: meme.image)
+        let meme = DataManager.instance.favoriteMemes[indexPath.item]
+        let image = DataManager.instance.bufferImages[meme.id] ?? #imageLiteral(resourceName: "placeholder-image")
+        cell.update(name: meme.name, image: image )
    
         return cell
     }
 
-    // MARK: UICollectionViewDelegate
+}
 
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
+// MARK: - Notification
+extension MemesCollectionViewController {
+    func addObservers () {
+        NotificationCenter.default.addObserver(self, selector: #selector(addFavoriteMeme(_:)),
+                                               name: .AddFavoriteMeme, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(delFavoriteMeme(_:)),
+                                               name: .DelFavoriteMeme, object: nil)
     }
 
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
+    @objc func addFavoriteMeme (_ notification: Notification) {
+       // debugPrint(DataManager.instance.favoriteMemes)
+        gridedDelegate.countItem = 2.0
+        self.collectionView?.reloadData()
     }
 
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
+    @objc func delFavoriteMeme (_ notification: Notification) {
+        gridedDelegate.countItem = 2.0
+        self.collectionView?.reloadData()
     }
-    */
-
+}
+// MARK: - GestureRecognizer
+extension MemesCollectionViewController {
+    @objc func tap (_ sender: UIGestureRecognizer) {
+        let p = sender.location(in: self.collectionView)
+        guard let indexPafh = self.collectionView?.indexPathForItem(at: p) else {return}
+        let meme = DataManager.instance.favoriteMemes[indexPafh.item]
+        
+        guard let destVC = storyboard?.instantiateViewController(withIdentifier: "MemeDetails") as? MemeDetailsViewController else {return}
+        destVC.meme = meme
+        self.navigationController?.pushViewController(destVC, animated: true)
+    }
 }

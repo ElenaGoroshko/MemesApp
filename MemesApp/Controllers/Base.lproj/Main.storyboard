@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -48,19 +49,70 @@
                     <navigationItem key="navigationItem" title="Memes" id="JaD-YV-G0T">
                         <barButtonItem key="rightBarButtonItem" title="+" id="fmL-dB-wea">
                             <connections>
-                                <segue destination="cRz-M8-m0r" kind="show" id="ZTA-A2-7Lz"/>
+                                <action selector="addPressed:" destination="xws-U6-Ug9" id="LhX-Ea-A6U"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="d3o-WY-26c" kind="show" identifier="ShowMemeDetails" id="saT-uO-be4"/>
+                        <segue destination="cRz-M8-m0r" kind="show" identifier="ShowAddMemes" id="MFB-EG-UT2"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vP8-PE-WFo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-178.40000000000001" y="-24.7376311844078"/>
+            <point key="canvasLocation" x="-170" y="-35"/>
+        </scene>
+        <!--Meme Details View Controller-->
+        <scene sceneID="8ot-TD-O9g">
+            <objects>
+                <viewController storyboardIdentifier="MemeDetails" id="d3o-WY-26c" customClass="MemeDetailsViewController" customModule="MemesApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pGe-Bi-jdB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9LK-7V-fjR">
+                                <rect key="frame" x="20" y="626" width="335" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YE6-8K-ihf">
+                                <rect key="frame" x="20" y="84" width="335" height="522"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YE6-8K-ihf" firstAttribute="top" secondItem="u5h-Ps-YVC" secondAttribute="top" constant="20" id="56M-N8-fup"/>
+                            <constraint firstItem="u5h-Ps-YVC" firstAttribute="trailing" secondItem="YE6-8K-ihf" secondAttribute="trailing" constant="20" id="Hon-RI-Rnc"/>
+                            <constraint firstItem="YE6-8K-ihf" firstAttribute="leading" secondItem="u5h-Ps-YVC" secondAttribute="leading" constant="20" id="JAZ-8C-V8S"/>
+                            <constraint firstItem="u5h-Ps-YVC" firstAttribute="trailing" secondItem="9LK-7V-fjR" secondAttribute="trailing" constant="20" id="XlL-OL-7A5"/>
+                            <constraint firstItem="9LK-7V-fjR" firstAttribute="top" secondItem="YE6-8K-ihf" secondAttribute="bottom" constant="20" id="e5m-rB-Ww0"/>
+                            <constraint firstItem="u5h-Ps-YVC" firstAttribute="bottom" secondItem="9LK-7V-fjR" secondAttribute="bottom" constant="20" id="r3L-f4-Jae"/>
+                            <constraint firstItem="9LK-7V-fjR" firstAttribute="leading" secondItem="u5h-Ps-YVC" secondAttribute="leading" constant="20" id="v4b-sE-cQ5"/>
+                            <constraint firstItem="9LK-7V-fjR" firstAttribute="top" secondItem="YE6-8K-ihf" secondAttribute="bottom" constant="20" id="vo7-Xw-j0r"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="u5h-Ps-YVC"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="OA5-5D-Kzc">
+                        <barButtonItem key="rightBarButtonItem" title="Delete" id="KEd-Kh-cJo">
+                            <connections>
+                                <action selector="deletePressed:" destination="d3o-WY-26c" id="2os-sW-IVZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="ibImage" destination="YE6-8K-ihf" id="mRn-3O-0G7"/>
+                        <outlet property="ibLabel" destination="9LK-7V-fjR" id="9kh-pX-jN8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i2C-aN-zzB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="622" y="302"/>
         </scene>
         <!--Add Memes Collection View Controller-->
         <scene sceneID="MeR-Nw-9Yf">
             <objects>
-                <collectionViewController id="cRz-M8-m0r" customClass="AddMemesCollectionViewController" customModule="MemesApp" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="AddMemes" id="cRz-M8-m0r" customClass="AddMemesCollectionViewController" customModule="MemesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="69R-Of-nFY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,7 +132,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vyv-xd-ZJb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="503" y="-26"/>
+            <point key="canvasLocation" x="622" y="-366"/>
         </scene>
     </scenes>
 </document>

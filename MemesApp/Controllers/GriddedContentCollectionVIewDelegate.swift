@@ -10,9 +10,10 @@ import UIKit
 
 class GriddedContentCollectionVIewDelegate: NSObject, UICollectionViewDelegateFlowLayout {
 // MARK: UICollectionViewDelegate
+    
     let minimumItemSpacing: CGFloat = 3
     var sectionInsets: UIEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
-    let countItem: CGFloat = 2.0
+    var countItem: CGFloat = 2.0
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
