@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import PKHUD
+import KeychainSwift
 
 class DataManager {
     static let instance = DataManager()
@@ -18,6 +19,7 @@ class DataManager {
     var gottenMemes: [Meme] = []
     var favoriteMemes: [Meme] = []
     var bufferImages: [String: UIImage] = [:]
+    var keyChain = KeychainSwift()
     
     private init() {
         

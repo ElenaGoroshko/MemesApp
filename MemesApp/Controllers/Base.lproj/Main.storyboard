@@ -78,9 +78,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jmH-LI-lGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="o9S-cy-Qch">
-                        <barButtonItem key="backBarButtonItem" title="Logout" id="wjA-m6-qWo"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="o9S-cy-Qch"/>
                     <connections>
                         <outlet property="ibTextField" destination="iZx-9G-fJ0" id="1ZK-4Q-cjL"/>
                         <segue destination="xws-U6-Ug9" kind="show" identifier="ShowMemes" id="hsC-6g-SE4"/>
@@ -111,6 +109,11 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Memes" leftItemsSupplementBackButton="YES" id="JaD-YV-G0T">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="my1-uo-ssl">
+                            <connections>
+                                <action selector="logoutPressed:" destination="xws-U6-Ug9" id="7RC-0V-Ssy"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="+" id="fmL-dB-wea">
                             <connections>
                                 <action selector="addPressed:" destination="xws-U6-Ug9" id="LhX-Ea-A6U"/>

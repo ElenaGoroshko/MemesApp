@@ -11,15 +11,13 @@ import KeychainSwift
 
 class LoginViewController: UIViewController {
     
-    private var keyChain = KeychainSwift()
-
     @IBOutlet private weak var ibTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      //  keyChain.clear() // временно
-        if keyChain.get("user") != nil {
-            ibTextField.text = keyChain.get("user")
+
+        if DataManager.instance.keyChain.get("user") != nil {
+            ibTextField.text = DataManager.instance.keyChain.get("user")
             showMemes()
         } else {
             ibTextField.text = ""
@@ -31,7 +29,7 @@ class LoginViewController: UIViewController {
             self.showAlertError(message: "Введите корректний eMail.")
             return
         }
-        keyChain.set(email, forKey: "user")
+        DataManager.instance.keyChain.set(email, forKey: "user")
         showMemes()
     }
     private func validationEmail(email: String?) -> String? {
