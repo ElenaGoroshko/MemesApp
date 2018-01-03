@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="-1657" y="-36"/>
         </scene>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="EcW-AB-iY6">
             <objects>
-                <viewController id="WS3-Nb-EcQ" sceneMemberID="viewController">
+                <viewController id="WS3-Nb-EcQ" customClass="LoginViewController" customModule="MemesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="42U-Ve-ei8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -47,15 +46,20 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="xws-U6-Ug9" kind="show" id="RHN-DK-zSF"/>
+                                    <action selector="startPressed:" destination="WS3-Nb-EcQ" eventType="touchUpInside" id="Wgw-qg-Dzm"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNm-iF-jUV">
-                                <rect key="frame" x="20" y="247" width="335" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iZx-9G-fJ0">
+                                <rect key="frame" x="20" y="251" width="335" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="9wk-3b-6gR"/>
+                                    <constraint firstAttribute="height" constant="40" id="ecc-iU-uaf"/>
                                 </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="eMail" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNm-iF-jUV">
+                                <rect key="frame" x="20" y="220.5" width="335" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -63,26 +67,33 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.87247721349999996" blue="0.70388454860000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="iZx-9G-fJ0" firstAttribute="leading" secondItem="jmH-LI-lGB" secondAttribute="leading" constant="20" id="6hs-og-UMU"/>
+                            <constraint firstItem="iZx-9G-fJ0" firstAttribute="top" secondItem="BNm-iF-jUV" secondAttribute="bottom" constant="10" id="AxP-33-qMI"/>
                             <constraint firstItem="jmH-LI-lGB" firstAttribute="trailing" secondItem="BNm-iF-jUV" secondAttribute="trailing" constant="20" id="HiQ-3Y-d2U"/>
-                            <constraint firstItem="BNm-iF-jUV" firstAttribute="centerY" secondItem="42U-Ve-ei8" secondAttribute="centerY" multiplier="4/5" id="JQN-Pl-ca3"/>
+                            <constraint firstItem="Vn4-9t-OtM" firstAttribute="top" secondItem="iZx-9G-fJ0" secondAttribute="bottom" constant="20" id="OoN-aY-AwP"/>
                             <constraint firstItem="Vn4-9t-OtM" firstAttribute="centerX" secondItem="42U-Ve-ei8" secondAttribute="centerX" id="PTY-yD-jYJ"/>
                             <constraint firstItem="Vn4-9t-OtM" firstAttribute="centerY" secondItem="42U-Ve-ei8" secondAttribute="centerY" id="hdS-e3-FIW"/>
                             <constraint firstItem="BNm-iF-jUV" firstAttribute="leading" secondItem="jmH-LI-lGB" secondAttribute="leading" constant="20" id="kF9-A9-hPe"/>
+                            <constraint firstItem="jmH-LI-lGB" firstAttribute="trailing" secondItem="iZx-9G-fJ0" secondAttribute="trailing" constant="20" id="zVS-n2-Eiq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jmH-LI-lGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="o9S-cy-Qch">
                         <barButtonItem key="backBarButtonItem" title="Logout" id="wjA-m6-qWo"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="ibTextField" destination="iZx-9G-fJ0" id="1ZK-4Q-cjL"/>
+                        <segue destination="xws-U6-Ug9" kind="show" identifier="ShowMemes" id="hsC-6g-SE4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UMs-ab-DY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-922.39999999999998" y="-36.431784107946029"/>
+            <point key="canvasLocation" x="-870" y="-36"/>
         </scene>
         <!--Memes-->
         <scene sceneID="BTT-OY-Dak">
             <objects>
-                <collectionViewController id="xws-U6-Ug9" customClass="MemesCollectionViewController" customModule="MemesApp" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="ShowMemes" id="xws-U6-Ug9" customClass="MemesCollectionViewController" customModule="MemesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ePC-Nf-zZT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
