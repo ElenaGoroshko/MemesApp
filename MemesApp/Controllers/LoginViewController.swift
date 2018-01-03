@@ -17,9 +17,10 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        keyChain.clear() // временно
+      //  keyChain.clear() // временно
         if keyChain.get("user") != nil {
             ibTextField.text = keyChain.get("user")
+            showMemes()
         } else {
             ibTextField.text = ""
         }
@@ -31,9 +32,7 @@ class LoginViewController: UIViewController {
             return
         }
         keyChain.set(email, forKey: "user")
-        guard let destVC = storyboard?.instantiateViewController(withIdentifier: "ShowMemes") as? MemesCollectionViewController
-        else { return }
-        self.navigationController?.pushViewController(destVC, animated: true)
+        showMemes()
     }
     private func validationEmail(email: String?) -> String? {
         guard let email = email,
@@ -42,5 +41,10 @@ class LoginViewController: UIViewController {
             return nil
         }
         return email
+    }
+    private func showMemes () {
+        guard let destVC = storyboard?.instantiateViewController(withIdentifier: "ShowMemes") as? MemesCollectionViewController
+            else { return }
+        self.navigationController?.pushViewController(destVC, animated: true)
     }
 }
