@@ -21,6 +21,8 @@
 		F3E3AA101FEABC8F00FDE277 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E3AA0F1FEABC8F00FDE277 /* DataManager.swift */; };
 		F3E3AA121FEAD2E100FDE277 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E3AA111FEAD2E100FDE277 /* Meme.swift */; };
 		F3E634961FEADCB200DAF566 /* AddMemesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E634951FEADCB200DAF566 /* AddMemesCollectionViewController.swift */; };
+		F3E999DC1FFCD7FF004C02B2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E999DB1FFCD7FF004C02B2 /* LoginViewController.swift */; };
+		F3E999E31FFD1EC9004C02B2 /* ExtentionUIVievController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E999E21FFD1EC9004C02B2 /* ExtentionUIVievController.swift */; };
 		F3F2333C1FEAF27D00D85BD7 /* GriddedContentCollectionVIewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F2333B1FEAF27D00D85BD7 /* GriddedContentCollectionVIewDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,8 @@
 		F3E3AA0F1FEABC8F00FDE277 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F3E3AA111FEAD2E100FDE277 /* Meme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 		F3E634951FEADCB200DAF566 /* AddMemesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemesCollectionViewController.swift; sourceTree = "<group>"; };
+		F3E999DB1FFCD7FF004C02B2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		F3E999E21FFD1EC9004C02B2 /* ExtentionUIVievController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionUIVievController.swift; sourceTree = "<group>"; };
 		F3F2333B1FEAF27D00D85BD7 /* GriddedContentCollectionVIewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GriddedContentCollectionVIewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +87,7 @@
 				F3E634951FEADCB200DAF566 /* AddMemesCollectionViewController.swift */,
 				F3F2333B1FEAF27D00D85BD7 /* GriddedContentCollectionVIewDelegate.swift */,
 				F3566CFA1FF8262900F4B82B /* MemeDetailsViewController.swift */,
+				F3E999DB1FFCD7FF004C02B2 /* LoginViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -128,6 +133,7 @@
 		F3A79A431FE26D8600A7A4DE /* MemesApp */ = {
 			isa = PBXGroup;
 			children = (
+				F3E999E11FFD1E5A004C02B2 /* Extension */,
 				F3E01DB01FF7BE5A0099C5AD /* Helpers */,
 				F3E3AA0E1FEABC7100FDE277 /* Model */,
 				F37A80E81FEABA78000B16FF /* View */,
@@ -154,6 +160,14 @@
 			);
 			name = Model;
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		F3E999E11FFD1E5A004C02B2 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F3E999E21FFD1EC9004C02B2 /* ExtentionUIVievController.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,12 +251,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MemesApp/Pods-MemesApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -308,12 +324,14 @@
 				F3566CFB1FF8262900F4B82B /* MemeDetailsViewController.swift in Sources */,
 				F3E01DAF1FF43F2A0099C5AD /* MemeImage.swift in Sources */,
 				F3E01DB21FF7BE780099C5AD /* Notification.swift in Sources */,
+				F3E999E31FFD1EC9004C02B2 /* ExtentionUIVievController.swift in Sources */,
 				F37A80E51FEAB875000B16FF /* MemeCollectionViewCell.swift in Sources */,
 				F3E3AA101FEABC8F00FDE277 /* DataManager.swift in Sources */,
 				F3D3D0DB1FEAB659002EE501 /* MemesCollectionViewController.swift in Sources */,
 				F3A79A451FE26D8600A7A4DE /* AppDelegate.swift in Sources */,
 				F3E634961FEADCB200DAF566 /* AddMemesCollectionViewController.swift in Sources */,
 				F3E3AA121FEAD2E100FDE277 /* Meme.swift in Sources */,
+				F3E999DC1FFCD7FF004C02B2 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

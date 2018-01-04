@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KeychainSwift
 
 private let reuseIdentifier = "Cell"
 
@@ -15,8 +16,8 @@ class MemesCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         gridedDelegate.countItem = 2.0
+        navigationItem.hidesBackButton = true
         collectionView?.delegate = gridedDelegate
         self.collectionView!.register(MemeCollectionViewCell.nib,
                                       forCellWithReuseIdentifier: MemeCollectionViewCell.reuseID)
@@ -29,6 +30,11 @@ class MemesCollectionViewController: UICollectionViewController {
         self.navigationController?.pushViewController(destVC, animated: true)
     }
     
+    @IBAction func logoutPressed(_ sender: UIBarButtonItem) {
+        DataManager.instance.clearEmail()
+       // DataManager.instance.
+        self.navigationController?.popViewController(animated: true)
+    }
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

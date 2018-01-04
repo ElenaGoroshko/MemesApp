@@ -19,21 +19,83 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="xws-U6-Ug9" kind="relationship" relationship="rootViewController" id="byh-2Z-12R"/>
+                        <segue destination="WS3-Nb-EcQ" kind="relationship" relationship="rootViewController" id="Pfi-cA-toR"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ls3-DD-WoA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-863" y="-25"/>
+            <point key="canvasLocation" x="-1657" y="-36"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="EcW-AB-iY6">
+            <objects>
+                <viewController id="WS3-Nb-EcQ" customClass="LoginViewController" customModule="MemesApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="42U-Ve-ei8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vn4-9t-OtM">
+                                <rect key="frame" x="127" y="311" width="120" height="45"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="Kbq-XB-BQN"/>
+                                    <constraint firstAttribute="height" constant="45" id="W2r-Eo-gbK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="START">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="startPressed:" destination="WS3-Nb-EcQ" eventType="touchUpInside" id="Wgw-qg-Dzm"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iZx-9G-fJ0">
+                                <rect key="frame" x="20" y="251" width="335" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="ecc-iU-uaf"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="eMail" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNm-iF-jUV">
+                                <rect key="frame" x="20" y="220.5" width="335" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.87247721349999996" blue="0.70388454860000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="iZx-9G-fJ0" firstAttribute="leading" secondItem="jmH-LI-lGB" secondAttribute="leading" constant="20" id="6hs-og-UMU"/>
+                            <constraint firstItem="iZx-9G-fJ0" firstAttribute="top" secondItem="BNm-iF-jUV" secondAttribute="bottom" constant="10" id="AxP-33-qMI"/>
+                            <constraint firstItem="jmH-LI-lGB" firstAttribute="trailing" secondItem="BNm-iF-jUV" secondAttribute="trailing" constant="20" id="HiQ-3Y-d2U"/>
+                            <constraint firstItem="Vn4-9t-OtM" firstAttribute="top" secondItem="iZx-9G-fJ0" secondAttribute="bottom" constant="20" id="OoN-aY-AwP"/>
+                            <constraint firstItem="Vn4-9t-OtM" firstAttribute="centerX" secondItem="42U-Ve-ei8" secondAttribute="centerX" id="PTY-yD-jYJ"/>
+                            <constraint firstItem="Vn4-9t-OtM" firstAttribute="centerY" secondItem="42U-Ve-ei8" secondAttribute="centerY" id="hdS-e3-FIW"/>
+                            <constraint firstItem="BNm-iF-jUV" firstAttribute="leading" secondItem="jmH-LI-lGB" secondAttribute="leading" constant="20" id="kF9-A9-hPe"/>
+                            <constraint firstItem="jmH-LI-lGB" firstAttribute="trailing" secondItem="iZx-9G-fJ0" secondAttribute="trailing" constant="20" id="zVS-n2-Eiq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jmH-LI-lGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="o9S-cy-Qch"/>
+                    <connections>
+                        <outlet property="ibTextField" destination="iZx-9G-fJ0" id="1ZK-4Q-cjL"/>
+                        <segue destination="xws-U6-Ug9" kind="show" identifier="ShowMemes" id="hsC-6g-SE4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UMs-ab-DY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-870" y="-36"/>
         </scene>
         <!--Memes-->
         <scene sceneID="BTT-OY-Dak">
             <objects>
-                <collectionViewController id="xws-U6-Ug9" customClass="MemesCollectionViewController" customModule="MemesApp" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="ShowMemes" id="xws-U6-Ug9" customClass="MemesCollectionViewController" customModule="MemesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ePC-Nf-zZT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="0.87247721349999996" blue="0.70388454860000005" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hQt-YU-6uU">
                             <size key="itemSize" width="190" height="141"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -46,7 +108,12 @@
                             <outlet property="delegate" destination="xws-U6-Ug9" id="284-lY-5X2"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Memes" id="JaD-YV-G0T">
+                    <navigationItem key="navigationItem" title="Memes" leftItemsSupplementBackButton="YES" id="JaD-YV-G0T">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="my1-uo-ssl">
+                            <connections>
+                                <action selector="logoutPressed:" destination="xws-U6-Ug9" id="7RC-0V-Ssy"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="+" id="fmL-dB-wea">
                             <connections>
                                 <action selector="addPressed:" destination="xws-U6-Ug9" id="LhX-Ea-A6U"/>
@@ -80,7 +147,7 @@
                                 <rect key="frame" x="20" y="84" width="335" height="522"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="0.87247721349999996" blue="0.70388454860000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="YE6-8K-ihf" firstAttribute="top" secondItem="u5h-Ps-YVC" secondAttribute="top" constant="20" id="56M-N8-fup"/>
                             <constraint firstItem="u5h-Ps-YVC" firstAttribute="trailing" secondItem="YE6-8K-ihf" secondAttribute="trailing" constant="20" id="Hon-RI-Rnc"/>
@@ -116,7 +183,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="69R-Of-nFY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="1" green="0.87247721349999996" blue="0.70388454860000005" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Z24-6b-rA5">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
