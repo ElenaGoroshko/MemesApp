@@ -19,7 +19,9 @@ class DataManager {
     var gottenMemes: [Meme] = []
     var favoriteMemes: [Meme] = []
     var bufferImages: [String: UIImage] = [:]
-    var keyChain = KeychainSwift()
+    var email: String = ""
+    private var keyChain = KeychainSwift()
+    
     
     private init() {
         
@@ -61,5 +63,16 @@ class DataManager {
                 self.favoriteMemes.remove(at: index)
                 return
         }
+    }
+
+    func setEmail (email: String) {
+        keyChain.set(email, forKey: "user")//sdwebimage
+    }
+    func getEmail () -> String? {
+        return keyChain.get("user")
+    }
+    func clearEmail () {
+        keyChain.clear()
+        self.favoriteMemes.removeAll()
     }
 }

@@ -16,20 +16,22 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if DataManager.instance.keyChain.get("user") != nil {
-            ibTextField.text = DataManager.instance.keyChain.get("user")
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if DataManager.instance.getEmail() != nil {
+            ibTextField.text = DataManager.instance.getEmail()
             showMemes()
         } else {
             ibTextField.text = ""
         }
     }
-
     @IBAction func startPressed(_ sender: UIButton) {
         guard let email = validationEmail(email: ibTextField.text) else {
             self.showAlertError(message: "Введите корректний eMail.")
             return
         }
-        DataManager.instance.keyChain.set(email, forKey: "user")
+        DataManager.instance.setEmail(email: email)
         showMemes()
     }
     private func validationEmail(email: String?) -> String? {

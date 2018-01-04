@@ -31,8 +31,8 @@ class MemesCollectionViewController: UICollectionViewController {
     }
     
     @IBAction func logoutPressed(_ sender: UIBarButtonItem) {
-        let keyChain = KeychainSwift()
-        keyChain.clear()
+        DataManager.instance.clearEmail()
+       // DataManager.instance.
         self.navigationController?.popViewController(animated: true)
     }
     // MARK: UICollectionViewDataSource
