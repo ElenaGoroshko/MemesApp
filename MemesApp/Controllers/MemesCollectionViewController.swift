@@ -24,6 +24,11 @@ class MemesCollectionViewController: UICollectionViewController {
         collectionView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
         addObservers()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        DataManager.instance.saveMemes(withName: "user")
+        DataManager.instance.loadMemes(withName: "user")
+    }
 
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
         guard let destVC = storyboard?.instantiateViewController(withIdentifier: "AddMemes") as? AddMemesCollectionViewController else {return}
@@ -32,7 +37,6 @@ class MemesCollectionViewController: UICollectionViewController {
     
     @IBAction func logoutPressed(_ sender: UIBarButtonItem) {
         DataManager.instance.clearEmail()
-       // DataManager.instance.
         self.navigationController?.popViewController(animated: true)
     }
     // MARK: UICollectionViewDataSource

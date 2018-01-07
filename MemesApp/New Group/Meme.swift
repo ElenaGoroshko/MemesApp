@@ -34,4 +34,5 @@ struct  Meme {
         self.name = name
         self.url = urlStr
     }
+
 }
