@@ -32,7 +32,6 @@ class MemesCollectionViewController: UICollectionViewController {
     
     @IBAction func logoutPressed(_ sender: UIBarButtonItem) {
         DataManager.instance.clearEmail()
-       // DataManager.instance.
         self.navigationController?.popViewController(animated: true)
     }
     // MARK: UICollectionViewDataSource
@@ -71,11 +70,13 @@ extension MemesCollectionViewController {
     @objc func addFavoriteMeme (_ notification: Notification) {
        // debugPrint(DataManager.instance.favoriteMemes)
         gridedDelegate.countItem = 2.0
+        DataManager.instance.saveMemes()
         self.collectionView?.reloadData()
     }
 
     @objc func delFavoriteMeme (_ notification: Notification) {
         gridedDelegate.countItem = 2.0
+        DataManager.instance.saveMemes()
         self.collectionView?.reloadData()
     }
 }
