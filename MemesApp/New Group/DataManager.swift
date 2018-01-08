@@ -70,6 +70,7 @@ class DataManager {
                                             userInfo: ["indexPath": indexPath] )
         }
     }
+
     func delFavoriteMeme (meme: Meme) {
         for (index, memeTmp) in self.favoriteMemes.enumerated() where meme.id == memeTmp.id {
                 self.favoriteMemes.remove(at: index)
@@ -78,7 +79,12 @@ class DataManager {
     }
 
     func setEmail (email: String) {
-        keyChain.set(email, forKey: "user")//sdwebimage
+        keyChain.set(email, forKey: "user")
+        let path = String( describing: pathInDocument(withComponent: email))
+        debugPrint(path, " ", fileManager.fileExists(atPath: path))
+        if fileManager.fileExists(atPath: path) == false {
+            loadMemes()
+        }
     }
     func getEmail () -> String? {
         return keyChain.get("user")
@@ -87,9 +93,12 @@ class DataManager {
         keyChain.clear()
         self.favoriteMemes.removeAll()
     }
-    func saveMemes(withName name: String) {
+
+    func saveMemes() {
+        guard let name = getEmail() else {return}
         let fileUrl = pathInDocument(withComponent: name)
-      //  debugPrint(fileUrl)
+        debugPrint(fileUrl)
+      //  if fileManager.fileExists(atPath: fil)
         var str = ""
         for (i, meme) in favoriteMemes.enumerated() {
             str += "\(meme.id)|\(meme.name)|\(meme.url)|"
@@ -102,9 +111,10 @@ class DataManager {
         debugPrint(str)
     }
     
-    func loadMemes(withName name: String) {
+    func loadMemes() {
         favoriteMemes = []
-        let fileUrl = pathInDocument(withComponent: name)
+        guard let nameFile = getEmail() else {return}
+        let fileUrl = pathInDocument(withComponent: nameFile)
         debugPrint(fileUrl)
         
         var str = ""
@@ -155,6 +165,7 @@ class DataManager {
             let meme = Meme(id: id, name: name, url: url)
             debugPrint(meme)
             favoriteMemes.append(meme)
+            
             id = ""
             name = ""
             url = ""

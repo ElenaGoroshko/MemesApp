@@ -21,6 +21,7 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(animated)
         if DataManager.instance.getEmail() != nil {
             ibTextField.text = DataManager.instance.getEmail()
+            DataManager.instance.loadMemes()
             showMemes()
         } else {
             ibTextField.text = ""

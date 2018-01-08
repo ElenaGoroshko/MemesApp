@@ -24,11 +24,6 @@ class MemesCollectionViewController: UICollectionViewController {
         collectionView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
         addObservers()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        DataManager.instance.saveMemes(withName: "user")
-        DataManager.instance.loadMemes(withName: "user")
-    }
 
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
         guard let destVC = storyboard?.instantiateViewController(withIdentifier: "AddMemes") as? AddMemesCollectionViewController else {return}
@@ -75,11 +70,13 @@ extension MemesCollectionViewController {
     @objc func addFavoriteMeme (_ notification: Notification) {
        // debugPrint(DataManager.instance.favoriteMemes)
         gridedDelegate.countItem = 2.0
+        DataManager.instance.saveMemes()
         self.collectionView?.reloadData()
     }
 
     @objc func delFavoriteMeme (_ notification: Notification) {
         gridedDelegate.countItem = 2.0
+        DataManager.instance.saveMemes()
         self.collectionView?.reloadData()
     }
 }

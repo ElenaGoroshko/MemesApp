@@ -13,3 +13,4 @@ extension Notification.Name {
     static let AddFavoriteMeme = Notification.Name("AddFavoriteMeme")
     static let DelFavoriteMeme = Notification.Name("DelFavoriteMeme")
 }
+
