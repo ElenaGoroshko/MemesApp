@@ -9,13 +9,7 @@
 import UIKit
 import SwiftyJSON
 struct  Meme {
-    /*
-     "id": "61579",
-     "name": "One Does Not Simply",
-     "url": "http://i.imgflip.com/1bij.jpg",
-     "width": 568,
-     "height": 335
- */
+
     let id: String
     let name: String
     let url: String

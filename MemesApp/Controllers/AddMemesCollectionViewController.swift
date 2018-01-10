@@ -21,12 +21,11 @@ class AddMemesCollectionViewController: UICollectionViewController {
                                       forCellWithReuseIdentifier: MemeCollectionViewCell.reuseID)
         DataManager.instance.getMemes(sender: self)
         collectionView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
-       
+
         addObservers()
     }
 
-    // MARK: UICollectionViewDataSource
-
+// MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -49,19 +48,18 @@ class AddMemesCollectionViewController: UICollectionViewController {
     }
 
 }
-
 // MARK: - Notification
 extension AddMemesCollectionViewController {
 
     @objc func getMemeImage(_ notification: Notification) {
         guard let indexPath = notification.userInfo?["indexPath"] as? IndexPath
-        else {
-            debugPrint("Error: Notification doesn't exist indexPath")
-            return
+            else {
+                debugPrint("Error: Notification doesn't exist indexPath")
+                return
         }
         collectionView?.reloadItems(at: [indexPath])
     }
-
+    
     func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(getMemeImage(_:)),
                                                name: .GetMemeImage, object: nil)

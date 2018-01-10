@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KeychainSwift
 
 private let reuseIdentifier = "Cell"
 
@@ -34,8 +33,8 @@ class MemesCollectionViewController: UICollectionViewController {
         DataManager.instance.clearEmail()
         self.navigationController?.popViewController(animated: true)
     }
-    // MARK: UICollectionViewDataSource
 
+// MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -52,10 +51,9 @@ class MemesCollectionViewController: UICollectionViewController {
         let meme = DataManager.instance.favoriteMemes[indexPath.item]
         let image = DataManager.instance.bufferImages[meme.id] ?? #imageLiteral(resourceName: "placeholder-image")
         cell.update(name: meme.name, image: image )
-   
+
         return cell
     }
-
 }
 
 // MARK: - Notification
@@ -65,18 +63,27 @@ extension MemesCollectionViewController {
                                                name: .AddFavoriteMeme, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(delFavoriteMeme(_:)),
                                                name: .DelFavoriteMeme, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadImage(_:)),
+                                               name: .LoadImage, object: nil)
+    }
+    //            NotificationCenter.default.post(name: .GetMemeImage, object: nil, userInfo: ["indexPath": indexPath] )
+
+    @objc func loadImage(_ notification: Notification) {
+        gridedDelegate.countItem = 2.0
+        self.collectionView?.reloadData()
     }
 
     @objc func addFavoriteMeme (_ notification: Notification) {
-       // debugPrint(DataManager.instance.favoriteMemes)
         gridedDelegate.countItem = 2.0
         DataManager.instance.saveMemes()
+        DataManager.instance.saveImages()
         self.collectionView?.reloadData()
     }
 
     @objc func delFavoriteMeme (_ notification: Notification) {
         gridedDelegate.countItem = 2.0
         DataManager.instance.saveMemes()
+        DataManager.instance.saveImages()
         self.collectionView?.reloadData()
     }
 }

@@ -12,5 +12,5 @@ extension Notification.Name {
     static let GetMemeImage = Notification.Name("GetMemeImage")
     static let AddFavoriteMeme = Notification.Name("AddFavoriteMeme")
     static let DelFavoriteMeme = Notification.Name("DelFavoriteMeme")
+    static let LoadImage = Notification.Name("LoadImage")
 }
-

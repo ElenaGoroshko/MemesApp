@@ -10,10 +10,10 @@ import UIKit
 
 class MemeDetailsViewController: UIViewController {
     var meme: Meme?
-    
+
     @IBOutlet private weak var ibImage: UIImageView!
     @IBOutlet private weak var ibLabel: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let meme = meme else { fatalError("Error: Meme doesn't exist") }

@@ -23,7 +23,7 @@ class DataManager {
 
     private var keyChain = KeychainSwift()
     private var fileManager = FileManager.default
-    
+
     private var directoryUrl: URL {
         guard let path = FileManager.default.urls(for: .documentDirectory,
                                                   in: .userDomainMask).first else {
@@ -31,12 +31,30 @@ class DataManager {
         }
         return path
     }
+    private var directoryUrlImages: URL {
+        guard let path = FileManager.default.urls(for: .documentDirectory,
+                                                  in: .userDomainMask).first,
+              let email = getEmailWithoutChar()
+        else {
+            fatalError("Something strange")
+        }
+        return path.appendingPathComponent(email)
+    }
+
+    private func pathInImage(withComponent component: String) -> URL {
+
+        if fileManager.directoryExists(atPath: directoryUrlImages.path) {
+            return directoryUrlImages.appendingPathComponent(component)
+        } else {
+            fatalError("Something strange")
+        }
+    }
+
     private func pathInDocument(withComponent component: String) -> URL {
-        return directoryUrl.appendingPathComponent(component)
+        return directoryUrl.appendingPathComponent(component + "memes")
     }
 
     private init() {
-        
     }
     func getMemes(sender: UICollectionViewController) {
         HUD.show(.progress)
@@ -58,6 +76,7 @@ class DataManager {
             }
         }
     }
+
     func getImage(indexPath: IndexPath, collectionView: UICollectionView) {
         let meme = self.gottenMemes[indexPath.item]
         Alamofire.request(meme.url).responseData { response in
@@ -80,14 +99,26 @@ class DataManager {
 
     func setEmail (email: String) {
         keyChain.set(email, forKey: "user")
-        let path = String( describing: pathInDocument(withComponent: email))
-        debugPrint(path, " ", fileManager.fileExists(atPath: path))
-        if fileManager.fileExists(atPath: path) == false {
+
+      //  let path = String( describing: pathInDocument(withComponent: email))
+       // debugPrint(path, " ", fileManager.fileExists(atPath: path))
+        if !fileManager.fileExists(atPath: pathInDocument(withComponent: email).path) {
             loadMemes()
+            if !fileManager.directoryExists(atPath: directoryUrlImages.path) {
+                createDirEmail()
+            }
+            loadImages()
         }
+
     }
-    func getEmail () -> String? {
-        return keyChain.get("user")
+//    func getEmail () -> String? {
+//        return keyChain.get("user")
+//    }
+    func getEmailWithoutChar()  -> String? {
+        guard var str = keyChain.get("user") else {return nil}
+        var i = str.startIndex
+        (str, i) = parsing(sourse: str, separator: "@", startIndex: i, stopIndex: str.endIndex)
+        return str
     }
     func clearEmail () {
         keyChain.clear()
@@ -95,25 +126,24 @@ class DataManager {
     }
 
     func saveMemes() {
-        guard let name = getEmail() else {return}
+        guard let name = getEmailWithoutChar() else {return}
         let fileUrl = pathInDocument(withComponent: name)
         debugPrint(fileUrl)
-      //  if fileManager.fileExists(atPath: fil)
         var str = ""
-        for (i, meme) in favoriteMemes.enumerated() {
+        for meme in favoriteMemes {
             str += "\(meme.id)|\(meme.name)|\(meme.url)|"
         }
         do {
             try str.write(to: fileUrl, atomically: true, encoding: .utf8)
         } catch {
-            debugPrint("error")
+            debugPrint("Error: File don't be write.")
         }
-        debugPrint(str)
+      //  debugPrint(str)
     }
     
     func loadMemes() {
         favoriteMemes = []
-        guard let nameFile = getEmail() else {return}
+        guard let nameFile = getEmailWithoutChar() else {return}
         let fileUrl = pathInDocument(withComponent: nameFile)
         debugPrint(fileUrl)
         
@@ -122,9 +152,9 @@ class DataManager {
         do {
             try str = String(contentsOf: fileUrl, encoding: .utf8)
         } catch {
-            debugPrint("error")
+            debugPrint("Error: File don't be read.")
         }
-        debugPrint(str)
+       // debugPrint(str)
         var id = ""
         var name = ""
         var url = ""
@@ -132,38 +162,11 @@ class DataManager {
         var j = str.startIndex
         var i = str.startIndex
         while i < str.endIndex {
-            j = i
-            while j < str.endIndex {
-                if str[j] != "|" {
-                    id.append(str[j])
-                    j = str.index(after: j)
-                } else {
-                    break
-                }
-                
-            }
-            j = str.index(after: j)
-            while j < str.endIndex {
-                if str[j] != "|" {
-                    name.append(str[j])
-                    j = str.index(after: j)
-                } else {
-                    break
-                }
-                
-            }
-            j = str.index(after: j)
-            while j < str.endIndex {
-                if str[j] != "|" {
-                    url.append(str[j])
-                    j = str.index(after: j)
-                } else {
-                    break
-                }
-            }
-            j = str.index(after: j)
+            (id, j) = parsing(sourse: str, separator: "|", startIndex: j, stopIndex: str.endIndex)
+            (name, j) = parsing(sourse: str, separator: "|", startIndex: j, stopIndex: str.endIndex)
+            (url, j) = parsing(sourse: str, separator: "|", startIndex: j, stopIndex: str.endIndex)
+            
             let meme = Meme(id: id, name: name, url: url)
-            debugPrint(meme)
             favoriteMemes.append(meme)
             
             id = ""
@@ -173,66 +176,86 @@ class DataManager {
         }
         NotificationCenter.default.post(name: .AddFavoriteMeme, object: nil)
     }
+    func parsing(sourse: String, separator: Character, startIndex: String.Index,
+                 stopIndex: String.Index) -> (String, String.Index) {
+        var i = startIndex
+        var str = ""
+        while i < stopIndex, sourse[i] != separator {
+            if sourse[i] != separator {
+                str.append(sourse[i])
+            }
+           i = sourse.index(after: i)
+        }
+        return (str, sourse.index(after: i))
+    }
+    func createDirEmail() {
+       // guard let eMail = getEmailWithoutChar() else { return }
+        let url = directoryUrlImages //directoryUrl.appendingPathComponent(eMail)
+        if !fileManager.directoryExists(atPath: String(describing: url)) {
+            do {
+                try fileManager.createDirectory(at: url, withIntermediateDirectories: false)
+            } catch let error as NSError {
+                print(error.localizedDescription)
+                debugPrint("Error: Can't create directory")
+            }
+        }
+    }
+
+     func saveImages() {
+        if !fileManager.directoryExists(atPath: directoryUrlImages.path) {
+            createDirEmail()
+        }
+        for meme in favoriteMemes {
+            let imageUrl = pathInImage(withComponent: meme.id)
+            guard let image = bufferImages[meme.id] else {
+                debugPrint("Error: The image don't exist")
+                return
+            }
+            guard let imageData = UIImagePNGRepresentation(image) else {
+                debugPrint("Error: The image don't transform.")
+                return
+            }
+            
+            do {
+                try imageData.write(to: imageUrl)
+            } catch {
+                debugPrint("Error: The fileImage doesn't created")
+            }
+                
+//                if !fileManager.createFile(atPath: imageUrl.path, contents: imageData) {
+//                debugPrint(imageUrl.path)
+//                debugPrint("Error: The fileImage doesn't created")
+//            }
+        }
+    }
+     func loadImages() {
+        if fileManager.directoryExists(atPath: directoryUrlImages.path) {
+            for meme in favoriteMemes {
+                let imageUrl = pathInImage(withComponent: meme.id)
+                if fileManager.fileExists(atPath: imageUrl.path) {
+                    bufferImages[meme.id] = UIImage(contentsOfFile: imageUrl.path)
+                } else {
+                    debugPrint("Error: The fileImage doesn't exists")
+                    debugPrint(meme.id + " " + imageUrl.path)
+                }
+            }
+            NotificationCenter.default.post(name: .LoadImage, object: nil)
+        } else {
+            
+            debugPrint("Error: The didImage doesn't exists")
+        }
+    }
+    func createDir() {
+        let path = pathInDocument(withComponent: "1")
+        debugPrint(path.path)
+        if !fileManager.directoryExists(atPath: path.path) {
+            do {
+                try fileManager.createDirectory(at: path, withIntermediateDirectories: false)
+            } catch {
+                debugPrint("create dir don't work")
+            }
+        } else {
+            debugPrint("dir exist")
+        }
+    }
 }
-/*
- @IBAction private func savePressed(_ sender: Any) {
-    hideKeyboard()
-    guard let filename = filenameInputField.text, !filename.isEmpty else {
-        showErrorAlert(withMessage: "You should provide filename")
-        return
-    }
-    let content = contentInputField.text ?? ""
-    createFile(withName: filename, content: content)
-    showAlert(title: "File saved", message: "")
- }
- 
- @IBAction private func loadPressed(_ sender: Any) {
-    hideKeyboard()
-    guard let filename = filenameInputField.text, !filename.isEmpty else {
-        showErrorAlert(withMessage: "Can't load without name")
-        return
-    }
-    loadFile(withName: filename)
-    showAlert(title: "File loaded", message: "")
- }
- private func createFile(withName name: String, content: String) {
-    let fileUrl = Utils.pathInDocument(withComponent: name)
-    do {
-        try content.write(to: fileUrl, atomically: true, encoding: .utf8)
-    } catch {
-        debugPrint("Error writing to file!")
-    }
- }
- 
- private func loadFile(withName name: String) {
-    let fileUrl = Utils.pathInDocument(withComponent: name)
-    do {
-        let contentData = try String(contentsOf: fileUrl, encoding: .utf8)
-        contentInputField.text = contentData
-    } catch {
-        showErrorAlert(withMessage: "File not found")
-    }
- }
-
- @objc private func hideKeyboard() {
-    view.endEditing(true)
- }
- 
- private func saveImage(withName name: String) {
-    let imageUrl = Utils.pathInDocument(withComponent: name)
-    guard let image = imageView.image else { return }
-    let imageData = UIImagePNGRepresentation(image)
-    FileManager.default.createFile(atPath: imageUrl.path, contents: imageData)
- }
- 
- private func loadImage(withName name: String) {
-    let imageUrl = Utils.pathInDocument(withComponent: name)
-    if FileManager.default.fileExists(atPath: imageUrl.path) {
-        imageView.image = UIImage(contentsOfFile: imageUrl.path)
-    } else {
-        debugPrint("File doesn't exists")
-        imageView.image = nil
-    }
- }
-
- */

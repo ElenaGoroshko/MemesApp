@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KeychainSwift
 
 class LoginViewController: UIViewController {
     
@@ -15,13 +14,14 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+       // DataManager.instance.createDir()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if DataManager.instance.getEmail() != nil {
-            ibTextField.text = DataManager.instance.getEmail()
+        if DataManager.instance.getEmailWithoutChar() != nil {
+            ibTextField.text = DataManager.instance.getEmailWithoutChar()
             DataManager.instance.loadMemes()
+            DataManager.instance.loadImages()
             showMemes()
         } else {
             ibTextField.text = ""
