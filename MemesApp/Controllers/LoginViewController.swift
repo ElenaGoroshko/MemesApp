@@ -14,7 +14,7 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+       // DataManager.instance.createDir()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

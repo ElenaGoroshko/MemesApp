@@ -51,7 +51,7 @@ class DataManager {
     }
 
     private func pathInDocument(withComponent component: String) -> URL {
-        return directoryUrl.appendingPathComponent(component)
+        return directoryUrl.appendingPathComponent(component + "memes")
     }
 
     private init() {
@@ -102,10 +102,10 @@ class DataManager {
 
       //  let path = String( describing: pathInDocument(withComponent: email))
        // debugPrint(path, " ", fileManager.fileExists(atPath: path))
-        if fileManager.fileExists(atPath: pathInDocument(withComponent: email).path) {
+        if !fileManager.fileExists(atPath: pathInDocument(withComponent: email).path) {
             loadMemes()
             if !fileManager.directoryExists(atPath: directoryUrlImages.path) {
-                createDirEmaile()
+                createDirEmail()
             }
             loadImages()
         }
@@ -188,21 +188,22 @@ class DataManager {
         }
         return (str, sourse.index(after: i))
     }
-    func createDirEmaile() {
-        guard let eMail = getEmailWithoutChar() else { return }
-        let url = directoryUrl.appendingPathComponent(eMail)
-        if fileManager.directoryExists(atPath: String(describing: url)) {
+    func createDirEmail() {
+       // guard let eMail = getEmailWithoutChar() else { return }
+        let url = directoryUrlImages //directoryUrl.appendingPathComponent(eMail)
+        if !fileManager.directoryExists(atPath: String(describing: url)) {
             do {
                 try fileManager.createDirectory(at: url, withIntermediateDirectories: false)
-            } catch {
+            } catch let error as NSError {
+                print(error.localizedDescription)
                 debugPrint("Error: Can't create directory")
             }
         }
     }
 
      func saveImages() {
-        if fileManager.directoryExists(atPath: directoryUrlImages.path) {
-            createDirEmaile()
+        if !fileManager.directoryExists(atPath: directoryUrlImages.path) {
+            createDirEmail()
         }
         for meme in favoriteMemes {
             let imageUrl = pathInImage(withComponent: meme.id)
@@ -210,11 +211,21 @@ class DataManager {
                 debugPrint("Error: The image don't exist")
                 return
             }
-            let imageData = UIImagePNGRepresentation(image)
-            if !fileManager.createFile(atPath: imageUrl.path, contents: imageData) {
-                debugPrint(imageUrl.path)
+            guard let imageData = UIImagePNGRepresentation(image) else {
+                debugPrint("Error: The image don't transform.")
+                return
+            }
+            
+            do {
+                try imageData.write(to: imageUrl)
+            } catch {
                 debugPrint("Error: The fileImage doesn't created")
             }
+                
+//                if !fileManager.createFile(atPath: imageUrl.path, contents: imageData) {
+//                debugPrint(imageUrl.path)
+//                debugPrint("Error: The fileImage doesn't created")
+//            }
         }
     }
      func loadImages() {
@@ -232,6 +243,19 @@ class DataManager {
         } else {
             
             debugPrint("Error: The didImage doesn't exists")
+        }
+    }
+    func createDir() {
+        let path = pathInDocument(withComponent: "1")
+        debugPrint(path.path)
+        if !fileManager.directoryExists(atPath: path.path) {
+            do {
+                try fileManager.createDirectory(at: path, withIntermediateDirectories: false)
+            } catch {
+                debugPrint("create dir don't work")
+            }
+        } else {
+            debugPrint("dir exist")
         }
     }
 }
